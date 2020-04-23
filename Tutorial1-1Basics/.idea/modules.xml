@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/../External-Tutorial-RxJava-Flatmap-Retrofit-CodingWithMitch/External-Tutorial-RxJava-Flatmap-Retrofit-CodingWithMitch.iml" filepath="$PROJECT_DIR$/../External-Tutorial-RxJava-Flatmap-Retrofit-CodingWithMitch/External-Tutorial-RxJava-Flatmap-Retrofit-CodingWithMitch.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../External-Tutorial-RxJava-Flatmap-Switchmap/External-Tutorial-RxJava-Flatmap-Switchmap.iml" filepath="$PROJECT_DIR$/../External-Tutorial-RxJava-Flatmap-Switchmap/External-Tutorial-RxJava-Flatmap-Switchmap.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../RxAndroidKotlin.iml" filepath="$PROJECT_DIR$/../RxAndroidKotlin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Tutorial1-1Basics.iml" filepath="$PROJECT_DIR$/Tutorial1-1Basics.iml" />
+    </modules>
+  </component>
+</project>
