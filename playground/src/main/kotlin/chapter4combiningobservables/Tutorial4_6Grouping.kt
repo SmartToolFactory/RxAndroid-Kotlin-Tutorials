@@ -1,6 +1,6 @@
 package chapter4combiningobservables
 
-import io.reactivex.rxjava3.core.Observable
+import io.reactivex.Observable
 
 
 fun main() {

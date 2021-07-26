@@ -1,8 +1,9 @@
 package chapter2observables
 
-import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.functions.Action
-import io.reactivex.rxjava3.functions.Consumer
+import io.reactivex.Completable
+import io.reactivex.Observable
+import io.reactivex.functions.Action
+import io.reactivex.functions.Consumer
 import java.lang.Thread.sleep
 import java.util.concurrent.ExecutionException
 import java.util.concurrent.Future

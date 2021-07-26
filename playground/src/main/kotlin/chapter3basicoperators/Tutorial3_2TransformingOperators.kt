@@ -1,6 +1,6 @@
 package chapter3basicoperators
 
-import io.reactivex.rxjava3.core.Observable
+import io.reactivex.Observable
 import java.lang.Thread.sleep
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -87,7 +87,7 @@ private fun testStartWithOperator() {
     val menu = Observable.just("Coffee", "Tea", "Espresso", "Latte")
 
     //print menu
-    menu.startWithItem("COFFEE SHOP MENU").subscribe(System.out::println)
+    menu.startWith("COFFEE SHOP MENU").subscribe(System.out::println)
 
     /*
         Prints:

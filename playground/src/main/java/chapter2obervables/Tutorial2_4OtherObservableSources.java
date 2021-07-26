@@ -1,14 +1,12 @@
 package chapter2obervables;
 
 
+import io.reactivex.Observable;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.*;
 
 import static java.lang.Thread.sleep;
-
-import io.reactivex.rxjava3.core.Observable;
-import io.reactivex.rxjava3.functions.Supplier;
 
 public class Tutorial2_4OtherObservableSources {
 
@@ -152,7 +150,7 @@ public class Tutorial2_4OtherObservableSources {
      * <p></p>
      * To remedy this problem of Observable sources not capturing state changes,
      * you can create a fresh Observable for each subscription.
-     * This can be achieved using {@link Observable#defer(Supplier)},
+     * This can be achieved using {@link Observable#defer(Callable)},
      * which accepts a lambda instructing how to create an Observable for every subscription.
      * Because this creates a new Observable each time,
      * it will reflect any changes driving its parameters:

@@ -1,7 +1,7 @@
 package chapter4combiningobservables
 
-import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.schedulers.TestScheduler
+import io.reactivex.Observable
+import io.reactivex.schedulers.TestScheduler
 import model.Person
 import java.lang.Thread.sleep
 import java.util.*

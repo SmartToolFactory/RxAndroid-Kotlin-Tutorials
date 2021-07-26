@@ -1,7 +1,6 @@
 package chapter7buffer_window_throttle_debounce
 
-import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.functions.Supplier
+import io.reactivex.Observable
 import java.lang.Thread.sleep
 import java.util.*
 import java.util.concurrent.Callable
@@ -81,7 +80,7 @@ fun testScanWithBuffer() {
  */
 fun testBufferWithHashSet() {
     Observable.range(1, 50)
-        .buffer(8, Supplier<HashSet<Int>> { HashSet() })
+        .buffer(8, Callable<HashSet<Int>> { HashSet() })
         .subscribe {
             println(it)
         }

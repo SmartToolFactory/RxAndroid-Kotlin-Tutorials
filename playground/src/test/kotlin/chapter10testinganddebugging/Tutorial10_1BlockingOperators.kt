@@ -1,6 +1,6 @@
 package chapter10testinganddebugging
 
-import io.reactivex.rxjava3.core.Observable
+import io.reactivex.Observable
 import org.junit.jupiter.api.Assertions.assertIterableEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test

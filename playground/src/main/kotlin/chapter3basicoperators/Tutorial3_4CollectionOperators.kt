@@ -1,9 +1,8 @@
 package chapter3basicoperators
 
-import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.functions.BiConsumer
-import io.reactivex.rxjava3.functions.Function
-import io.reactivex.rxjava3.functions.Supplier
+import io.reactivex.Observable
+import io.reactivex.functions.BiConsumer
+import io.reactivex.functions.Function
 import java.util.*
 import java.util.concurrent.Callable
 import java.util.concurrent.ConcurrentHashMap
@@ -204,11 +203,11 @@ private fun testToMapCustomOperator() {
             },
 
             // key = Char, Value = Int
-            object : Supplier<ConcurrentHashMap<Char, Int>> {
-                override fun get(): ConcurrentHashMap<Char, Int> {
+            object : Callable<ConcurrentHashMap<Char, Int>> {
+
+                override fun call(): ConcurrentHashMap<Char, Int> {
                     return ConcurrentHashMap()
                 }
-
 
             })
         .subscribe { s -> println("Received: $s") }
@@ -291,7 +290,7 @@ private fun testCollect() {
 
     // INFO Alternative1
     Observable.just("Alpha", "Beta", "Gamma", "Delta", "Epsilon", "Alpha", "Gamma")
-        .collect(Supplier<HashSet<Any>> { HashSet() }, BiConsumer<HashSet<Any>, String> { obj, e -> obj.add(e) })
+        .collect(Callable<HashSet<Any>> { HashSet() }, BiConsumer<HashSet<Any>, String> { obj, e -> obj.add(e) })
         .subscribe { s -> println("Received: $s") }
 
     // INFO Alternative2

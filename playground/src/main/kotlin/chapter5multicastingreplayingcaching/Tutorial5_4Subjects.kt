@@ -1,8 +1,8 @@
 package chapter5multicastingreplayingcaching
 
-import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.functions.BiFunction
-import io.reactivex.rxjava3.subjects.*
+import io.reactivex.Observable
+import io.reactivex.functions.BiFunction
+import io.reactivex.subjects.*
 import java.lang.Thread.sleep
 import java.util.concurrent.TimeUnit
 

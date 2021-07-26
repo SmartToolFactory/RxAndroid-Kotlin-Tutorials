@@ -1,7 +1,7 @@
 package chapter3basicoperators
 
-import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.core.ObservableSource
+import io.reactivex.Observable
+import io.reactivex.ObservableSource
 import java.lang.RuntimeException
 
 
@@ -176,7 +176,7 @@ private fun testOnErrorResumeNextOperator() {
 
     Observable.just(5, 2, 4, 0, 3, 2, 8)
         .map { i -> 10 / i }
-        .onErrorResumeWith(Observable.just(-1).repeat(3))
+        .onErrorResumeNext(Observable.just(-1).repeat(3))
         .subscribe(
             { i -> println("RECEIVED: $i") },
             { e -> println("RECEIVED ERROR: $e") },
@@ -199,7 +199,7 @@ private fun testOnErrorResumeNextOperator() {
 
     Observable.just(5, 2, 4, 0, 3, 2, 8)
         .map { i -> 10 / i }
-        .onErrorResumeWith(Observable.empty())
+        .onErrorResumeNext(Observable.empty())
         .subscribe(
             { i -> println("RECEIVED: $i") },
             { e -> println("RECEIVED ERROR: $e") },
@@ -258,7 +258,7 @@ private fun testOnErrorResumeNextWithNewSequence() {
         .doOnError {
             println("doOnError() throwable: ${it.message}")
         }
-        .onErrorResumeWith(Observable.just(100, 200, 300))
+        .onErrorResumeNext(Observable.just(100, 200, 300))
         .subscribe(
             { i -> println("RECEIVED: $i") },
             { e -> println("RECEIVED ERROR: $e") }

@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <bytecodeTargetLevel target="1.8" />
+    <bytecodeTargetLevel target="1.8">
+      <module name="RxAndroid_Kotlin_Tutorials.Application_OnEvent_Timer" target="11" />
+      <module name="RxAndroid_Kotlin_Tutorials.External-Tutorial-RxJava-Flatmap-Retrofit-CodingWithMitch" target="11" />
+      <module name="RxAndroid_Kotlin_Tutorials.External-Tutorial-RxJava-Flatmap-Switchmap" target="11" />
+      <module name="RxAndroid_Kotlin_Tutorials.Tutorial1-1Basics" target="11" />
+    </bytecodeTargetLevel>
   </component>
 </project>

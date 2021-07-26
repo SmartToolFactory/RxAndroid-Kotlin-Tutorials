@@ -1,6 +1,6 @@
 package chapter4combiningobservables
 
-import io.reactivex.rxjava3.core.Observable
+import io.reactivex.Observable
 import java.lang.Thread.sleep
 import java.util.concurrent.TimeUnit
 

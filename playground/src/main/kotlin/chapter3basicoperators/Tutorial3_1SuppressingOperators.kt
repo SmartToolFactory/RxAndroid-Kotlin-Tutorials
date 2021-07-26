@@ -1,7 +1,7 @@
 package chapter3basicoperators
 
-import io.reactivex.rxjava3.core.Maybe
-import io.reactivex.rxjava3.core.Observable
+import io.reactivex.Maybe
+import io.reactivex.Observable
 import java.lang.Thread.sleep
 import java.util.concurrent.TimeUnit
 import java.util.function.Predicate

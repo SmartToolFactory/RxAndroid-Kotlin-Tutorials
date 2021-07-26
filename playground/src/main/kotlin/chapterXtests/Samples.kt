@@ -1,6 +1,6 @@
 package chapterXtests
 
-import io.reactivex.rxjava3.core.Observable
+import io.reactivex.Observable
 import java.lang.Thread.sleep
 
 fun main() {

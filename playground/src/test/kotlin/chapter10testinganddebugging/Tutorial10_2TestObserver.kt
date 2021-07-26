@@ -1,9 +1,9 @@
 package chapter10testinganddebugging
 
-import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.functions.BiFunction
-import io.reactivex.rxjava3.observers.TestObserver
-import io.reactivex.rxjava3.schedulers.Schedulers
+import io.reactivex.Observable
+import io.reactivex.functions.BiFunction
+import io.reactivex.observers.TestObserver
+import io.reactivex.schedulers.Schedulers
 import org.junit.jupiter.api.Test
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -23,20 +23,17 @@ class Tutorial10_2TestObserver {
         val testObserver: TestObserver<Long> = TestObserver()
 
         //Assert no subscription has occurred yet
-        // TODO This does not exist in RxJava3 Find related method
-//        testObserver.assertNotSubscribed()
+        testObserver.assertNotSubscribed()
 
         //Subscribe TestObserver to source
         source.subscribe(testObserver)
 
         // Subscribes here
         //Assert TestObserver is subscribed
-        // TODO This does not exist in RxJava3 Find related method
-//        testObserver.assertSubscribed()
+        testObserver.assertSubscribed()
 
         //🔥🔥 Block and wait for Observable to terminate
-        // TODO This does not exist in RxJava3 Find related method
-//        testObserver.awaitTerminalEvent()
+        testObserver.awaitTerminalEvent()
 
         //Assert TestObserver called onComplete()
         testObserver.assertComplete()
@@ -121,8 +118,7 @@ class Tutorial10_2TestObserver {
             .subscribe(testObserver)
 
         // Waits answer to mock answer to come after delay
-        // TODO This does not exist in RxJava3 Find related method
-//        testObserver.awaitTerminalEvent()
+        testObserver.awaitTerminalEvent()
 
         testObserver.assertComplete()
         testObserver.assertNoErrors()

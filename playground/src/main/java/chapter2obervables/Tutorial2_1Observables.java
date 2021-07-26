@@ -1,15 +1,13 @@
 package chapter2obervables;
 
+import io.reactivex.Observable;
+import io.reactivex.functions.Function;
+import io.reactivex.functions.Predicate;
+
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CopyOnWriteArrayList;
-
-import io.reactivex.rxjava3.core.Observable;
-import io.reactivex.rxjava3.functions.Function;
-import io.reactivex.rxjava3.functions.Predicate;
-import io.reactivex.rxjava3.functions.Supplier;
-
 
 public class Tutorial2_1Observables {
 
@@ -114,9 +112,9 @@ public class Tutorial2_1Observables {
 
         // INFO Alternative 1
         Observable.just("Alpha", "Beta", "Gamma", "Delta", "Epsilon")
-                .toList(new Supplier<Collection<? super String>>() {
+                .toList(new Callable<Collection<String>>() {
                     @Override
-                    public Collection<? super String> get() throws Throwable {
+                    public Collection<String> call() throws Exception {
                         return new CopyOnWriteArrayList<>();
                     }
                 })
@@ -139,7 +137,7 @@ public class Tutorial2_1Observables {
 
         Observable.just("Alpha", "Beta", "Gamma", "Delta", "Epsilon").toMap(new Function<String, Character>() {
             @Override
-            public Character apply(String s){
+            public Character apply(String s) throws Exception {
                 return s.charAt(0);
             }
         }).subscribe(s -> System.out.println("Received: " + s));

@@ -1,8 +1,8 @@
 package chapter4combiningobservables
 
-import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.functions.BiFunction
-import io.reactivex.rxjava3.subjects.BehaviorSubject
+import io.reactivex.Observable
+import io.reactivex.functions.BiFunction
+import io.reactivex.subjects.BehaviorSubject
 import java.lang.Thread.sleep
 import java.util.concurrent.TimeUnit
 
@@ -388,5 +388,5 @@ fun testWithLatestFromOperatorInterval2() {
 }
 
 private fun getPeriodicUpdate(period: Long = 1000): Observable<Long> =
-    Observable.interval(period, TimeUnit.MILLISECONDS).startWithItem(0)
+    Observable.interval(period, TimeUnit.MILLISECONDS).startWith(0)
 
