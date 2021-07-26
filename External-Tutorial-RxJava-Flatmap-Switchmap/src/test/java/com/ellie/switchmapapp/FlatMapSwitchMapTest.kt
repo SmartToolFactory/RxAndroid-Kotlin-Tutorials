@@ -4,10 +4,10 @@ import android.graphics.Bitmap
 import com.ellie.image.ImageRepository
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
-import io.reactivex.Single
-import io.reactivex.android.plugins.RxAndroidPlugins
-import io.reactivex.schedulers.Schedulers
-import io.reactivex.schedulers.TestScheduler
+import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.core.android.plugins.RxAndroidPlugins
+import io.reactivex.rxjava3.schedulers.Schedulers
+import io.reactivex.rxjava3.schedulers.TestScheduler
 import org.junit.Before
 import org.junit.Test
 import java.util.concurrent.TimeUnit.SECONDS

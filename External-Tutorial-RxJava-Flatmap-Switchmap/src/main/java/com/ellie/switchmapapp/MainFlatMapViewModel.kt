@@ -2,9 +2,9 @@ package com.ellie.switchmapapp
 
 import android.graphics.Bitmap
 import com.ellie.image.ImageRepository
-import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.subjects.BehaviorSubject
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.core.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.subjects.BehaviorSubject
 
 
 class MainFlatMapViewModel(private val imageRepository: ImageRepository) {

@@ -3,8 +3,8 @@ package com.ellie.image
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import io.reactivex.Single
-import io.reactivex.schedulers.Schedulers
+import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 
 open class ImageRepository(private val context: Context) {

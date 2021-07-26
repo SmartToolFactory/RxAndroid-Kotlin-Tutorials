@@ -7,12 +7,12 @@ import androidx.databinding.DataBindingUtil
 import com.smarttoolfactory.rxandroidkotlin.databinding.Activity3OperatorsBinding
 import com.smarttoolfactory.rxandroidkotlin.model.Address
 import com.smarttoolfactory.rxandroidkotlin.model.User
-import io.reactivex.Observable
-import io.reactivex.ObservableOnSubscribe
-import io.reactivex.Observer
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.core.ObservableOnSubscribe
+import io.reactivex.rxjava3.core.Observer
+import io.reactivex.rxjava3.core.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.disposables.Disposable
+import io.reactivex.rxjava3.schedulers.Schedulers
 import java.util.*
 import java.util.concurrent.TimeUnit
 
@@ -46,7 +46,8 @@ class Activity3Operators2FlatMap : AppCompatActivity() {
 //            .observeOn(AndroidSchedulers.mainThread()) // 🔥 Causes crash
             .doOnNext {
                 // This is thread: RxCachedThreadScheduler-X thread
-                println("🗿 doOnNext() ${it.name}, addresss: ${it.address?.address}, thread: ${Thread.currentThread().name}")
+                println("🗿 doOnNext() ${it.name}, addresss: ${it.address?.address}, " +
+                        "thread: ${Thread.currentThread().name}")
 
             }
 
@@ -59,7 +60,8 @@ class Activity3Operators2FlatMap : AppCompatActivity() {
 
                     .doOnNext {
                         // This is RxComputationThreadPool-X thread
-                        println("🥶flatMap(): doOnNext() ${it.name}, address: ${it.address?.address}, thread: ${Thread.currentThread().name}")
+                        println("🥶flatMap(): doOnNext() ${it.name}, address: ${it.address?.address}, " +
+                                "thread: ${Thread.currentThread().name}")
 
                     }
             }
@@ -72,7 +74,8 @@ class Activity3Operators2FlatMap : AppCompatActivity() {
 
                 override fun onNext(user: User) {
                     // This is main thread
-                    println("🔥onNext() ${user.name}, addresss: ${user.address?.address}, thread: ${Thread.currentThread().name}")
+                    println("🔥onNext() ${user.name}, addresss: ${user.address?.address}," +
+                            " thread: ${Thread.currentThread().name}")
 
                     stringBuilder.append("${user.name}-${user.gender}-${Thread.currentThread().name}\n")
                     dataBinding.textUsers.text = stringBuilder.toString()
@@ -166,7 +169,7 @@ class Activity3Operators2FlatMap : AppCompatActivity() {
         super.onDestroy()
         println("Activity3Operators1Map onDestroy()")
 
-        disposable?.dispose();
+        disposable?.dispose()
 
 
     }
