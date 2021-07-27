@@ -1,6 +1,7 @@
 package chapter4combiningobservables
 
 import io.reactivex.Observable
+import io.reactivex.observables.GroupedObservable
 
 
 fun main() {
@@ -25,7 +26,7 @@ private fun testGroupByOperator() {
 
     val source = Observable.just("Alpha", "Beta", "Gamma", "Delta", "Epsilon")
 
-    val byLengths = source.groupBy { s -> s.length }
+    val byLengths: Observable<GroupedObservable<Int, String>> = source.groupBy { s -> s.length }
 
     /*
        INFO

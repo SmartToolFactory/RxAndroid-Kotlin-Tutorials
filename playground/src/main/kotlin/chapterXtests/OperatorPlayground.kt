@@ -20,9 +20,9 @@ fun main() {
 //    flattenAsObservableOperator()
 //    flatMapIterableOperator()
 
-//    delayEachItemWithConcatMap()
+    delayEachItemWithConcatMap()
 
-    asyncMerge()
+//    asyncMerge()
 //    asyncConcat()
 }
 

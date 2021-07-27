@@ -292,7 +292,7 @@ private fun testFromIterable() {
         //                    if (name.endsWith("x")) {
         //                        throw new RuntimeException("What a terrible failure!");
         //                    }
-        name.toUpperCase()
+        name.uppercase()
     }
         // Use doOnNext, doOnComplete and doOnError to print messages
         // on each item, when the stream complete, and when an error occurs
@@ -335,16 +335,19 @@ private fun testMultipleSubscription() {
 
 private fun testScanOperator() {
 
+    val nums = Observable.fromIterable(listOf(1,2,3,4,5))
+
+    nums.scan { t1: Int, t2: Int ->
+        t1 + t2
+    }
+
     val disposable = Observable.just(
         "Alpha", "Beta", "Gamma", "Delta", "Epsilon"
     )
         .scan(0, object : BiFunction<Int, String, Int> {
-
             override fun apply(integer: Int, s: String): Int {
                 return integer + 1
             }
-
-
         })
         .doOnComplete { println("doOnComplete") }
         .doOnTerminate { println("doOnTerminate") }

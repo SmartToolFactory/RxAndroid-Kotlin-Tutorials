@@ -15,7 +15,7 @@ fun main() {
 //    testMergeArrayOperator()
 //    testMergeOperatorWithList()
 //    testMergeOperatorInterval()
-    testMergeOperatorIntervalWithFiniteSource()
+//    testMergeOperatorIntervalWithFiniteSource()
     // INFO mergeWith
 //    testMergeWithOperator()
 
@@ -26,7 +26,7 @@ fun main() {
 //    testFlatMapPerson()
 
 //    testFlatMapVsConcatMap()
-//    testFlatMapVsSwitchMap()
+    testFlatMapVsSwitchMap()
 
 //    testFlatMapOperatorWithInterval()
 }
@@ -323,26 +323,39 @@ private fun testFlatMapPerson() {
 private fun testFlatMapOperator2() {
 
     // 🔥 WARNING This one delays the emission then emits all values at once
+//    delayWithMap()
+
+    // 🔥 WARNING This one delays the emission then emits all values at once
+//    delayWithFlatMap()
+
+    // Delays each item as specified delay time before emitting them
     delayEachItemWithFlatMap()
-
-    delayWithFlatMap()
-
+    /*
+        Prints:
+        In flatMap() for Alan, with delay: 2
+        In flatMap() for Bob, with delay: 2
+        In flatMap() for Cobb, with delay: 1
+        In flatMap() for Dan, with delay: 3
+        In flatMap() for Evan, with delay: 3
+        In flatMap() for Finch, with delay: 2
+        flatMap() COBB
+        flatMap() ALAN
+        flatMap() BOB
+        flatMap() FINCH
+        flatMap() EVAN
+        flatMap() DAN
+     */
 
     sleep(5000)
-
-
 }
 
-/**
- * Delays each item inside [Observable.flatMap] before emitting
- */
-private fun delayWithFlatMap() {
-    val listOfPeople = listOf("Alan", "Bob", "Cobb", "Dan", "Evan", "Finch")
 
+private fun delayWithMap() {
+    val listOfPeople = listOf("Alan", "Bob", "Cobb", "Dan", "Evan", "Finch")
 
     Observable.fromIterable(listOfPeople)
         .map {
-            it.toUpperCase()
+            it.uppercase()
         }
         .delay(Random().nextInt(5).toLong(), TimeUnit.SECONDS)
         .subscribe {
@@ -350,6 +363,23 @@ private fun delayWithFlatMap() {
         }
 }
 
+private fun delayWithFlatMap() {
+    val listOfPeople = listOf("Alan", "Bob", "Cobb", "Dan", "Evan", "Finch")
+
+    Observable.fromIterable(listOfPeople)
+        .flatMap {
+            Observable.just(it)
+                .map(String::uppercase)
+        }
+        .delay(4, TimeUnit.SECONDS)
+        .subscribe {
+            println("flatMap() $it")
+        }
+}
+
+/**
+ * Delays each item inside [Observable.flatMap] before emitting
+ */
 private fun delayEachItemWithFlatMap() {
     val listOfPeople = listOf("Alan", "Bob", "Cobb", "Dan", "Evan", "Finch")
 
@@ -357,8 +387,9 @@ private fun delayEachItemWithFlatMap() {
     Observable.fromIterable(listOfPeople)
         .flatMap {
             val delay = Random().nextInt(5)
+            println("In flatMap() for $it, with delay: $delay")
             Observable.just(it)
-                .map(String::toUpperCase)
+                .map(String::uppercase)
                 .delay(delay.toLong(), TimeUnit.SECONDS)
         }
         .subscribe {

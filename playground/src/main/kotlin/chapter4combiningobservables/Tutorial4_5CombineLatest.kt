@@ -14,11 +14,11 @@ fun main() {
 //    testCombineLatestOperatorInterval()
 
     // INFO withLatestFrom
-//    testWithLatestFromOperator()
+    testWithLatestFromOperator()
 //    testWithLatestFromOperatorInterval()
 
 
-    testWithLatestFromOperatorInterval2()
+//    testWithLatestFromOperatorInterval2()
 
 
 }
@@ -272,7 +272,8 @@ private fun testWithLatestFromOperatorInterval() {
         }
     sleep(3000)
 
-    // This operator uses latest value of source1 and emits whenever a source 2 emits if source1 calls withLatestFrom
+    // This operator uses latest value of source2 and emits whenever a source1
+    // emits if source1 calls withLatestFrom
 
     /*
         Prints:

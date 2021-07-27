@@ -12,11 +12,11 @@ fun main() {
 //        testSingleFromObservable()
 
 //    testMaybe()
-//        testMaybeFromObservable()
+        testMaybeFromObservable()
 
 
 //    testCompletable()
-    testCompletableWithAndThen()
+//    testCompletableWithAndThen()
 }
 
 /**
@@ -26,12 +26,13 @@ fun main() {
  *   for a single emission.
  *
  *   It has its own SingleObserver interface as well:
- *
+ *```
  *   interface SingleObserver<T> {
  *      void onSubscribe(Disposable d);
  *      void onSuccess(T value);
  *      void onError(Throwable error);
-}
+ *  }
+ *  ```
  */
 private fun testSingle() {
     val hello = Single.just("Hello")
@@ -72,12 +73,14 @@ private fun testSingleFromObservable() {
  *
  * MaybeObserver is much like a standard Observer, but onNext() is called onSuccess() instead:
  *
+ * ```
  * public interface MaybeObserver<T> {
  *     void onSubscribe(Disposable d);
  *     void onSuccess(T value);
  *     void onError(Throwable e);
  *     void onComplete();
  * }
+ * ```
  */
 private fun testMaybe() {
 
@@ -89,6 +92,12 @@ private fun testMaybe() {
         { println("Process 1 done!") }
     )
 
+    /*
+        only onSuccess(), onError(), or onComplete() gets called
+        Prints:
+        Process 1 received: 100
+     */
+
     // has emission
     //        Maybe<Integer> emptySource = Maybe.just(12);
 
@@ -97,10 +106,36 @@ private fun testMaybe() {
 
     emptySource.subscribe(
         { s -> println("onSuccess(): Process 2 received: " + s!!) },
-        { "onError() ${it.message}"},
+        { "onError() ${it.message}" },
         { println("onComplete()") }
     )
 
+    /*
+        Since no emissions available only calls onComplete()
+        Prints:
+        onComplete()
+     */
+
+    val errorMaybe = Maybe.fromAction<Int> {
+        throw NumberFormatException()
+    }
+
+    errorMaybe.subscribe(
+        {
+            println("Maybe onSuccess() $it")
+        },
+        {
+            println("Maybe onError() ${it.message}")
+        },
+        {
+            println("Maybe onComplete()")
+        }
+    )
+
+    /*
+        Prints:
+        Maybe onError() null
+     */
 
 }
 
@@ -116,6 +151,10 @@ private fun testMaybeFromObservable() {
             { it.printStackTrace() },
             { println("Done!") }
         )
+    /*
+        Prints:
+        RECEIVED Alpha
+     */
 
 }
 
@@ -126,11 +165,13 @@ private fun testMaybeFromObservable() {
  * Logically, it does not have onNext() or onSuccess() to receive emissions,
  * but it does have onError() and onComplete():
  *
+ * ```
  * interface CompletableObserver<T> {
  *     void onSubscribe(Disposable d);
  *     void onComplete();
  *     void onError(Throwable error);
  * }
+ * ```
  */
 private fun testCompletable() {
 
@@ -138,12 +179,28 @@ private fun testCompletable() {
         println("Hello World")
     }
 
-    completable.subscribe(object : Action {
-        override fun run() {
-            println("onComplete()")
-        }
+    completable.subscribe(
+        {
 
-    })
+        },
+        {
+
+        }
+    )
+
+    completable.subscribe(
+        object : Action {
+            override fun run() {
+                println("onComplete()")
+            }
+        },
+        object : Consumer<Throwable> {
+            override fun accept(t: Throwable?) {
+                println("onError()")
+            }
+
+        }
+    )
 
 }
 
@@ -169,7 +226,7 @@ private fun testCompletableWithAndThen() {
 
     // 🔥 After action of Completable is finished new Observable starts
     Completable.fromAction(action)
-        .andThen(Observable.just(1,2,3))
+        .andThen(Observable.just(1, 2, 3))
         .doOnNext {
             println("DoOnNext() $it")
         }

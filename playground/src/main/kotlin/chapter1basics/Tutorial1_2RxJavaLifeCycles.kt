@@ -31,9 +31,17 @@ fun main() {
  * 🔥🔥🔥 Life cycle of Observable from subscription to completion
  *
  * *subscribeOn affects upstream operators (operators above the subscribeOn)
+ * ### if you have multiple subscribeOn() calls on a given Observable chain,
+ * the top-most one, or the one closest to the source, will win and cause
+ * any subsequent ones to have no practical effect (other than unnecessary resource usage).
+ * If I call subscribeOn() with Schedulers.computation() and then call subscribeOn() for
+ * Schedulers.io(), Schedulers.computation() is the one that will be used
+ *
+ *
  * *observeOn affects downstream operators (operators below the observeOn)
  * *If only subscribeOn is specified, all operators will be be executed on that thread
- * *If only observeOn is specified, all operators will be executed on the current thread and only operators below
+ * *If only observeOn is specified, all operators will be executed on the current thread
+ * and only operators below
  * the observeOn will be switched to thread specified by the observeOn
  */
 
@@ -42,7 +50,7 @@ private fun observableLifeCycle() {
     val source = Observable.just("Alpha", "Beta", "Gamma")
 
 
-    source
+    val disposable = source
         .doOnSubscribe {
             println("doOnSubscribe() thread: ${Thread.currentThread().name}")
         }
@@ -81,7 +89,9 @@ private fun observableLifeCycle() {
             },
             {
                 println("😎 subscribe() -> onError(): thread: ${Thread.currentThread().name}, error: ${it.message}")
-
+            },
+            {
+                println("🥵 subscribe() -> onComplete(): thread: ${Thread.currentThread().name}")
             }
         )
 
@@ -105,6 +115,7 @@ private fun observableLifeCycle() {
         🎃 doOnEach() thread: main, event: OnCompleteNotification, val: null
         doOnComplete() thread: main
         doOnTerminate() thread: main
+        🥵 subscribe() -> onComplete(): thread: main
         doFinally() thread: main
         doAfterTerminate() thread: main
 
@@ -125,7 +136,7 @@ private fun observableLifeCycleWithMap() {
     val source = Observable.just("Alpha", "Beta", "Gamma")
 
 
-    source
+    val disposable = source
         .doOnSubscribe {
             println("doOnSubscribe() thread: ${Thread.currentThread().name}")
         }
@@ -163,18 +174,19 @@ private fun observableLifeCycleWithMap() {
             println("map() 1 thread: ${Thread.currentThread().name}, val: $value")
             value
         }
+
         .map {
             val value = it + "Map2"
             println("map() 2 thread: ${Thread.currentThread().name}, val: $value")
             value
         }
+
         .subscribe(
             {
                 println("😎 subscribe() -> onNext(): thread: ${Thread.currentThread().name}, val: $it")
             },
             {
                 println("😎 subscribe() -> onError(): thread: ${Thread.currentThread().name}, error: ${it.message}")
-
             }
         )
 
@@ -316,9 +328,9 @@ private fun observableLifeCycleWithFlatMap() {
     val source = Observable.just("Alpha", "Beta", "Gamma")
 
 
-    source
-        .subscribeOn(Schedulers.io())
-        .observeOn(Schedulers.newThread())
+    val disposable = source
+//        .subscribeOn(Schedulers.io())
+//        .observeOn(Schedulers.newThread())
         .doOnSubscribe {
             println("doOnSubscribe() thread: ${Thread.currentThread().name}")
         }

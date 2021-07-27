@@ -2,6 +2,7 @@ package chapter3basicoperators
 
 import io.reactivex.Maybe
 import io.reactivex.Observable
+import io.reactivex.Single
 import java.lang.Thread.sleep
 import java.util.concurrent.TimeUnit
 import java.util.function.Predicate
@@ -259,6 +260,17 @@ private fun testDistinctOperator3() {
             it.first()
         }
         .subscribe { i -> println("RECEIVED: $i") }
+
+    /*
+        Predicate is the first letter of word, so only one word starting with a letter
+        previously not emitted will be emitted.
+
+        Prints:
+        RECEIVED: Acid
+        RECEIVED: Black
+        RECEIVED: Cyan
+        RECEIVED: Dark
+     */
 }
 
 /**
@@ -308,13 +320,16 @@ private fun testElementAtOperator() {
 
      */
 
-    maybe.subscribe(
+    maybe
+        .doOnComplete {
+            println("doOnComplete()")
+        }
+        .subscribe(
         { i -> println("onSuccess() RECEIVED: $i") },
         { error -> println("onError $error") },
         { println("onComplete") })
 
     /*
-        If element index is greater than length it only invokes onComplete()
+        🔥 If element index is greater than length it only invokes onComplete()
      */
-
 }

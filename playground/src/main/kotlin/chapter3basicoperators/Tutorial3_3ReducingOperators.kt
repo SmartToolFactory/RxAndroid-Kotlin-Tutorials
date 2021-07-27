@@ -1,6 +1,7 @@
 package chapter3basicoperators
 
 import io.reactivex.Observable
+import io.reactivex.Single
 import java.time.LocalDate
 
 
@@ -86,9 +87,11 @@ private fun testReduceOperator() {
  *
  */
 private fun testAllOperator() {
-    Observable.just(5, 3, 7, 11, 2, 14)
-        .all { i -> i < 10 } // Single
-        .subscribe { s -> println("Received: $s") }
+    val single: Single<Boolean> =
+        Observable.just(5, 3, 7, 11, 2, 14)
+            .all { i -> i < 10 } // Single
+
+    single.subscribe { s -> println("Received: $s") }
 }
 
 /**
@@ -100,13 +103,14 @@ private fun testAllOperator() {
  */
 private fun testAnyOperator() {
 
-    Observable.just(
+  val single: Single<Boolean> =  Observable.just(
         "2016-01-01", "2016-05-02", "2016-09-12",
         "2016-04-03"
     )
         .map { LocalDate.parse(it) }
         .any { dt -> dt.monthValue >= 6 } // Single
-        .subscribe { s -> println("onSuccess() Received: $s") }
+
+    single.subscribe { s -> println("onSuccess() Received: $s") }
 
     /*
         Prints:
@@ -123,10 +127,10 @@ private fun testAnyOperator() {
  */
 private fun testContains() {
 
-    Observable.range(1, 10000)
+   val single: Single<Boolean> =  Observable.range(1, 10000)
         .contains(9563) // Single
-        .subscribe {
-                s -> println("onSuccess() Received: $s") }
+
+       single.subscribe { s -> println("onSuccess() Received: $s") }
     /*
         Prints:
         onSuccess() Received: true

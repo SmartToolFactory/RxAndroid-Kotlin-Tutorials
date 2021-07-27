@@ -8,7 +8,7 @@ import java.lang.RuntimeException
 fun main() {
 
     // INFO onError
-//    testOnErrorReturnOperator()
+    testOnErrorReturnOperator()
 
 //     INFO onErrorReturnItem
 //    testOnErrorReturnItemOperator()
@@ -23,7 +23,7 @@ fun main() {
 //    Important 🔥🔥
 //    testOnErrorResumeNextWithCondition()
 //    Important 🔥🔥
-    testOnErrorResumeNextWithConditionAndObservableSource()
+//    testOnErrorResumeNextWithConditionAndObservableSource()
 
 
 //     INFO retry
